@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAuthentication.Sample.Mobile.LoginPage">
+    <ContentPage.Content>
+        <StackLayout Margin="8" Spacing="8">
+            <Label x:Name="LabelLoginStatus" Text="" TextColor="Black"></Label>
+            <Button Clicked="ButtonGoAnyway_Clicked" Text="Go to main page anyway!" x:Name="ButtonGoAnyway"></Button>
+            <Button Clicked="ButtonLogin_Clicked" Text="Login" x:Name="ButtonLogin"></Button>
+            <Button Clicked="ButtonLogout_Clicked" Text="Logout" x:Name="ButtonLogout"></Button>
+            <WebView x:Name="WebViewInstance" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
