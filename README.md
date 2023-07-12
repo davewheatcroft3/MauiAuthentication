@@ -25,7 +25,7 @@ NOTE: To run the sample project, ensure both the Api AND Mobile app are running 
 ### Required Steps
 1. Install Nuget package
 ```
-Install-Package Maui.Authentication
+Install-Package BlazorLikeAuth.Maui
 ```
 
 2. In your Program.cs add
