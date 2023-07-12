@@ -13,6 +13,8 @@ namespace Maui.Authentication.Oidc
         private readonly MauiAuthenticationSettings _settings;
         private readonly BrowserFactory _browserFactory;
 
+        private const string WebViewCallbackScheme = "http://localhost/callback";
+
         public OAuthClient(IOptions<MauiAuthenticationSettings> options, BrowserFactory browserFactory)
         {
             _browserFactory = browserFactory;
@@ -24,7 +26,7 @@ namespace Maui.Authentication.Oidc
                 ClientId = _settings.OAuthSettings.ClientId,
                 ClientSecret = _settings.OAuthSettings.ClientSecret,
                 Scope = _settings.OAuthSettings.Scope,
-                RedirectUri = _settings.OAuthSettings.RedirectUri
+                RedirectUri = _settings.OAuthSettings.CallbackScheme
             });
             _oidcClient.Options.Policy.Discovery.AdditionalEndpointBaseAddresses.Add(_settings.OAuthSettings.Domain);
         }
@@ -32,11 +34,13 @@ namespace Maui.Authentication.Oidc
         public void Initialize(WebView webView)
         {
             _oidcClient.Options.Browser = _browserFactory.BuildWebViewBrowser(webView);
+            _oidcClient.Options.RedirectUri = WebViewCallbackScheme;
         }
 
         public void Initialize()
         {
             _oidcClient.Options.Browser = _browserFactory.BuildWebAuthenticatorBrowser();
+            _oidcClient.Options.RedirectUri = _settings.OAuthSettings.CallbackScheme;
         }
 
         public async Task<LoginResult> LoginAsync()

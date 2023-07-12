@@ -10,7 +10,7 @@
 
         public string ClientSecret { get; set; } = null!;
 
-        public string RedirectUri { get; set; } = null!;
+        public string CallbackScheme { get; set; } = null!;
 
         public string LogoutUrl { get; set; } = null!;
 

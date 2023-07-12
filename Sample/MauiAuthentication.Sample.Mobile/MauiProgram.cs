@@ -29,9 +29,9 @@ public static class MauiProgram
             options.OAuthSettings.ResponseType = "code";
             options.OAuthSettings.LogoutUrl = "https://dev-khkwv2u0z51n71ze.us.auth0.com/logout";
 #if WINDOWS
-                options.OAuthSettings.RedirectUri = "http://localhost/callback";
+                options.OAuthSettings.CallbackScheme = "http://localhost/callback";
 #else
-            options.OAuthSettings.RedirectUri = "mauiauthapp://callback";
+            options.OAuthSettings.CallbackScheme = "mauiauthapp://callback";
 #endif
         });
 

@@ -42,11 +42,7 @@ builder.Services.AddMauiAuthentication(options =>
     options.OAuthSettings.Scope = "openid";
     options.OAuthSettings.ResponseType = "code";
     options.OAuthSettings.LogoutUrl = "<url to logout of your oauth provider>";
-#if WINDOWS
-    options.OAuthSettings.RedirectUri = "http://localhost/callback"; // Windows uses a webview with localhost
-#else
-    options.OAuthSettings.RedirectUri = "mauiauthapp://callback"; // Your callback uri for your app
-#endif
+    options.OAuthSettings.CallbackScheme = "mauiauthapp://callback"; // Your callback uri for your app
 });
 ```
 
@@ -58,14 +54,13 @@ builder.Services.AddAuthenticatedHttpClient<SomeApiClient>((sp, h) =>
 });
 ```
 
-4. Platform Specific Steps:
-**See the sample project for full code**
-In the sample project search for "mauiauthapp" for callback scheme used in it.
+###Platform Specific Steps
+**See the sample project for full code**<br/>
+In the sample project search for "mauiauthapp" for callback scheme used in it.<br/>
 
-a. Android (1):
-Add a WebAuthenticationCallbackActivity class referencing your callback scheme.
-b. Android (2):
-Add this to the AndroidManifest.xml
+1. Android
+a. Add a WebAuthenticationCallbackActivity class referencing your callback scheme.
+b. Add this to the AndroidManifest.xml
 ```xml
 <queries>
     <intent>
@@ -73,7 +68,8 @@ Add this to the AndroidManifest.xml
     </intent>
 </queries>
 ```
-c. iOS
+
+2. iOS + MacCatalyst
 Add to Info.plist:
 ```xml
 <key>CFBundleURLTypes</key>
@@ -90,9 +86,8 @@ Add to Info.plist:
     </dict>
 </array>
 ```
-d. MacCatalyst
-__NOTE: same as iOS__
-e. Windows
+
+3. Windows
 Add to the Package.appxmanifest file:
 ```xml
 <Extensions>
