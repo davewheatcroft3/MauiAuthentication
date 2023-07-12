@@ -28,11 +28,7 @@ public static class MauiProgram
             options.OAuthSettings.Scope = "openid";
             options.OAuthSettings.ResponseType = "code";
             options.OAuthSettings.LogoutUrl = "https://dev-khkwv2u0z51n71ze.us.auth0.com/logout";
-#if WINDOWS
-                options.OAuthSettings.CallbackScheme = "http://localhost/callback";
-#else
             options.OAuthSettings.CallbackScheme = "mauiauthapp://callback";
-#endif
         });
 
         builder.Services.AddAuthenticatedHttpClient<WeatherApiClient>((sp, h) =>
@@ -40,6 +36,9 @@ public static class MauiProgram
             var apiBaseUrl = "https://localhost:7189";
             h.BaseAddress = new Uri(apiBaseUrl);
         });
+
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<MainPage>();
 
         return builder.Build();
 	}

@@ -62,9 +62,10 @@ internal class PreferencesTokenProvider : ITokenProvider
                 return Task.FromResult<IEnumerable<(string Name, string Value)>>(new List<(string Name, string Value)>());
             }
 
-            var deserialized = JsonSerializer.Deserialize<IEnumerable<(string Name, string Value)>>(serialized);
+            var deserialized = JsonSerializer.Deserialize<IEnumerable<ClaimPair>>(serialized);
 
-            return Task.FromResult(deserialized ?? new List<(string Name, string Value)>());
+            return Task.FromResult(deserialized?.Select(x => (x.Name, x.Value))
+                ?? new List<(string Name, string Value)>());
         }
         catch
         {

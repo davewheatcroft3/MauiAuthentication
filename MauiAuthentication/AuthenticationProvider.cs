@@ -19,10 +19,12 @@ public class AuthenticationProvider
 
         _authClient.Initialize();
 
-        _ = LoadInitialState();
+        Initialize().Wait();
     }
 
     public AuthenticationState State { get; private set; } = new AuthenticationState();
+
+    public event EventHandler<AuthenticationState>? StateChanged;
 
     public void UseWebView(WebView webView)
     {
@@ -32,7 +34,7 @@ public class AuthenticationProvider
     public async Task<bool> LoginAsync()
     {
         var result = await _authClient.LoginAsync();
-        
+
         if (!result.IsError)
         {
             var claims = result.User.Claims
@@ -49,13 +51,17 @@ public class AuthenticationProvider
 
             State = new AuthenticationState() { User = result.User };
 
+            TriggerStateChangedEvent();
+
             return true;
         }
         else
         {
             await _tokenProvider.ClearAllAsync();
-            
+
             State = new AuthenticationState();
+
+            TriggerStateChangedEvent();
 
             return false;
         }
@@ -68,6 +74,8 @@ public class AuthenticationProvider
         await _tokenProvider.ClearAllAsync();
 
         State = new AuthenticationState();
+
+        TriggerStateChangedEvent();
     }
 
     public async Task<bool> RefreshAsync()
@@ -91,15 +99,26 @@ public class AuthenticationProvider
         return false;
     }
 
-    private async Task LoadInitialState()
+    private void TriggerStateChangedEvent()
     {
-        // This should refresh check should be based on decode jwt of id token
-        if (await _tokenService.ShouldRefreshTokenAsync())
+        if (StateChanged != null)
         {
-            await RefreshAsync();
+            StateChanged(this, State);
         }
+    }
 
+    private async Task Initialize()
+    {
         var claimsPrincipal = await _tokenService.GetClaimsAsync();
+
+        if (claimsPrincipal.Identity?.IsAuthenticated == true)
+        {
+            // This should refresh check should be based on decode jwt of id token
+            if (await _tokenService.ShouldRefreshTokenAsync())
+            {
+                await RefreshAsync();
+            }
+        }
 
         State = new AuthenticationState()
         {

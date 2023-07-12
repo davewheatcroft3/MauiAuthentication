@@ -1,12 +1,18 @@
-﻿namespace MauiAuthentication.Sample.Mobile;
+﻿using MauiAuthentication.Sample.Mobile.Data;
+using System.Net;
+
+namespace MauiAuthentication.Sample.Mobile;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	private readonly WeatherApiClient _apiClient;
+	private int count = 0;
 
-	public MainPage()
+	public MainPage(WeatherApiClient apiClient)
 	{
-		InitializeComponent();
+		_apiClient = apiClient;
+
+        InitializeComponent();
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
@@ -21,16 +27,32 @@ public partial class MainPage : ContentPage
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
 
-	private void OnHttpClicked(object sender, EventArgs e)
+	private async void OnHttpClicked(object sender, EventArgs e)
     {
-		var authenticated = false;
+		try
+		{
+			AuthenticatedLabel.Text = "Loading...";
 
-        if (authenticated)
-            AuthenticatedLabel.Text = $"Authenticated!";
-        else
-            AuthenticatedLabel.Text = $"Not Authenticated!";
+            var forecasts = await _apiClient.GetForecastAsync();
+            AuthenticatedLabel.Text = $"Authenticated! {forecasts.Length} forecasts returned!";
+        }
+		catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                AuthenticatedLabel.Text = $"Not Authenticated! Sorry no forecasts for you.";
+            }
+			else
+            {
+                AuthenticatedLabel.Text = $"There was an error communicating with the API. Ensure its running!";
+            }
+        }
+		catch (Exception)
+        {
+            AuthenticatedLabel.Text = $"Unknown error communicating with the API. This is a likely a problem with the sample app...";
+        }
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        SemanticScreenReader.Announce(AuthenticatedLabel.Text);
     }
 }
 

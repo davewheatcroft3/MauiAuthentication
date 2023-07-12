@@ -100,7 +100,22 @@ Add to the Package.appxmanifest file:
 ```
 
 ## Other Things Of Note
-There are plans to add an AuthenticateView or similar to further mimic Blazor Server...
+There is an AuthenticateView control (mimicking Blazors equivalent).
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage ...
+             xmlns:ma="clr-namespace:Maui.Authentication.Controls;assembly=MauiAuthentication"
+             ...
+...
+<ma:AuthenticateView>
+    <ma:AuthenticateView.Authenticated>
+        
+    </ma:AuthenticateView.Authenticated>
+    <ma:AuthenticateView.NotAuthenticated>
 
-Also potentially add an Authenticate attribute on a per page level...
+    </ma:AuthenticateView.NotAuthenticated>
+</ma:AuthenticateView>
+```
+
+Also may potentially add an Authenticate attribute on a per page level...
 

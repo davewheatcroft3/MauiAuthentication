@@ -15,16 +15,11 @@ namespace MauiAuthentication.Sample.Mobile.Data
         {
             var response = await _httpClient.GetAsync("/weatherforecast");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var parsedContent = await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+            response.EnsureSuccessStatusCode();
 
-                return parsedContent ?? new WeatherForecast[0];
-            }
-            else
-            {
-                return new WeatherForecast[0];
-            }
+            var parsedContent = await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+
+            return parsedContent ?? new WeatherForecast[0];
         }
     }
 }

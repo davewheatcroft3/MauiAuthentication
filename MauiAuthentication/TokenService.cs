@@ -30,8 +30,6 @@ public class TokenService
     {
         var claimPairs = await _tokenProvider.GetClaimsAsync();
 
-        var claimsPrincipal = new ClaimsPrincipal();
-
         var claims = new List<Claim>();
 
         foreach (var claimPair in claimPairs)
@@ -39,7 +37,7 @@ public class TokenService
             claims.Add(new Claim(claimPair.Name, claimPair.Value));
         }
 
-        claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, "none"));
+        var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, claims.Count > 0 ? "none" : null));
 
         return claimsPrincipal;
     }

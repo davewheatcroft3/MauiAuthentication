@@ -20,7 +20,7 @@ namespace MauiAuthentication.Sample.Mobile
 
         private async void ButtonGoAnyway_Clicked(object sender, EventArgs e)
         {
-            await AppShell.Current.GoToAsync("MainPage");
+            await AppShell.Current.GoToAsync("Main");
         }
 
         private async void ButtonLogin_Clicked(object sender, EventArgs e)

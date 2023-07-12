@@ -1,6 +1,7 @@
 ﻿using Maui.Authentication.Configuration;
 using Maui.Authentication.Handlers;
 using Maui.Authentication.Oidc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Maui.Authentication
 {
