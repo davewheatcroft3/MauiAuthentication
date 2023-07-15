@@ -47,9 +47,10 @@ public class AuthenticateView : ContentView, IDisposable
         _authProvider.StateChanged -= AuthProvider_StateChanged;
     }
 
-    private void SetVisibility()
+    private async void SetVisibility()
     {
-        var isAuthenticated = _authProvider.State?.User?.Identity?.IsAuthenticated == true;
+        var state = await _authProvider.GetStateAsync();
+        var isAuthenticated = state?.User?.Identity?.IsAuthenticated == true;
 
         if (isAuthenticated)
         {

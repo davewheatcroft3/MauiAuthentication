@@ -93,11 +93,7 @@ internal class PreferencesTokenProvider : ITokenProvider
 
     public Task ClearAllAsync()
     {
-        Preferences.Clear(IdTokenKey);
-        Preferences.Clear(AccessTokenKey);
-        Preferences.Clear(RefreshTokenKey);
-        Preferences.Clear(ExpiresAtKey);
-        Preferences.Clear(ClaimsKey);
+        Preferences.Clear();
         return Task.CompletedTask;
     }
 

@@ -18,7 +18,7 @@
 #elif IOS || MACCATALYST
 			MauiUIApplicationDelegate.Current.Services;
 #else
-			null;
+			throw new Exception("Unsupport platform");
 #endif
     }
 }

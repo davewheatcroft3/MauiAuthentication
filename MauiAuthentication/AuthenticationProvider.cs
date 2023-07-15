@@ -18,11 +18,19 @@ public class AuthenticationProvider
         _tokenService = tokenService;
 
         _authClient.Initialize();
-
-        Initialize().Wait();
     }
 
-    public AuthenticationState State { get; private set; } = new AuthenticationState();
+    private AuthenticationState? _state;
+
+    public async Task<AuthenticationState> GetStateAsync()
+    {
+        if ( _state == null)
+        {
+            await Initialize();
+        }
+
+        return _state!;
+    }
 
     public event EventHandler<AuthenticationState>? StateChanged;
 
@@ -49,7 +57,7 @@ public class AuthenticationProvider
 
             await _tokenProvider.SetClaimsAsync(claims);
 
-            State = new AuthenticationState() { User = result.User };
+            _state = new AuthenticationState() { User = result.User };
 
             TriggerStateChangedEvent();
 
@@ -59,7 +67,7 @@ public class AuthenticationProvider
         {
             await _tokenProvider.ClearAllAsync();
 
-            State = new AuthenticationState();
+            _state = new AuthenticationState();
 
             TriggerStateChangedEvent();
 
@@ -73,7 +81,7 @@ public class AuthenticationProvider
 
         await _tokenProvider.ClearAllAsync();
 
-        State = new AuthenticationState();
+        _state = new AuthenticationState();
 
         TriggerStateChangedEvent();
     }
@@ -103,7 +111,7 @@ public class AuthenticationProvider
     {
         if (StateChanged != null)
         {
-            StateChanged(this, State);
+            StateChanged(this, _state!);
         }
     }
 
@@ -120,7 +128,7 @@ public class AuthenticationProvider
             }
         }
 
-        State = new AuthenticationState()
+        _state = new AuthenticationState()
         {
             User = claimsPrincipal
         };

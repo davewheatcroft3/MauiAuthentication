@@ -12,10 +12,16 @@ namespace MauiAuthentication.Sample.Mobile
 
             InitializeComponent();
 
-            CheckInitialState();
 #if WINDOWS
             _authProvider.UseWebView(WebViewInstance);
 #endif
+        }
+
+        protected override async void OnAppearing()
+        {
+            await CheckInitialState();
+
+            base.OnAppearing();
         }
 
         private async void ButtonGoAnyway_Clicked(object sender, EventArgs e)
@@ -44,9 +50,10 @@ namespace MauiAuthentication.Sample.Mobile
             ResetToLoggedOut();
         }
 
-        private void CheckInitialState()
+        private async Task CheckInitialState()
         {
-            if (_authProvider.State.User?.Identity?.IsAuthenticated == true)
+            var state = await _authProvider.GetStateAsync();
+            if (state.User?.Identity?.IsAuthenticated == true)
             {
                 ResetToLoggedIn();
             }
