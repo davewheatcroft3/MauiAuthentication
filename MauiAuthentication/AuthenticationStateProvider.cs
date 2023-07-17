@@ -124,12 +124,12 @@ public class AuthenticationStateProvider
             // This should refresh check should be based on decode jwt of id token
             if (await _tokenService.ShouldRefreshTokenAsync())
             {
-                await RefreshAsync();
-            }
-            else
-            {
-                await _tokenProvider.ClearAllAsync();
-                return;
+                if (!await RefreshAsync())
+                {
+                    await _tokenProvider.ClearAllAsync();
+                    _state = new AuthenticationState();
+                    return;
+                }
             }
         }
 
