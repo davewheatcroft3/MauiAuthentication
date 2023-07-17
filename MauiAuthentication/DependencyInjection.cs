@@ -28,7 +28,7 @@ namespace Maui.Authentication
 
             services.AddScoped<HttpTokenHandler>();
 
-            services.AddSingleton<AuthenticationProvider>();
+            services.AddSingleton<AuthenticationStateProvider>();
         }
 
         public static void AddAuthenticatedHttpClient<T>(this IServiceCollection services, Action<IServiceProvider, HttpClient> options)

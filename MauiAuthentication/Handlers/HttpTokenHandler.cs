@@ -3,9 +3,9 @@
     public class HttpTokenHandler : DelegatingHandler
     {
         private readonly TokenService _tokenService;
-        private readonly AuthenticationProvider _authProvider;
+        private readonly AuthenticationStateProvider _authProvider;
 
-        public HttpTokenHandler(TokenService tokenService, AuthenticationProvider authProvider)
+        public HttpTokenHandler(TokenService tokenService, AuthenticationStateProvider authProvider)
         {
             _tokenService = tokenService;
             _authProvider = authProvider;
@@ -22,6 +22,10 @@
                     if (await _authProvider.RefreshAsync())
                     {
                         token = await _tokenService.GetBearerTokenAsync();
+                    }
+                    else
+                    {
+                        await _authProvider.LogoutAsync();
                     }
                 }
             }

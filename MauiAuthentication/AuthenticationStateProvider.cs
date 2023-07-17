@@ -2,13 +2,13 @@ using Maui.Authentication.Oidc;
 
 namespace Maui.Authentication;
 
-public class AuthenticationProvider
+public class AuthenticationStateProvider
 {
     private readonly OAuthClient _authClient;
     private readonly ITokenProvider _tokenProvider;
     private readonly TokenService _tokenService;
 
-    public AuthenticationProvider(
+    public AuthenticationStateProvider(
         OAuthClient authClient,
         ITokenProvider tokenProvider,
         TokenService tokenService)
@@ -125,6 +125,11 @@ public class AuthenticationProvider
             if (await _tokenService.ShouldRefreshTokenAsync())
             {
                 await RefreshAsync();
+            }
+            else
+            {
+                await _tokenProvider.ClearAllAsync();
+                return;
             }
         }
 

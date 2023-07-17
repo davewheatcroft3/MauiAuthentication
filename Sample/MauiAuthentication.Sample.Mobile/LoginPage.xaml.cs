@@ -4,9 +4,9 @@ namespace MauiAuthentication.Sample.Mobile
 {
     public partial class LoginPage : ContentPage
     {
-        private readonly AuthenticationProvider _authProvider;
+        private readonly AuthenticationStateProvider _authProvider;
 
-        public LoginPage(AuthenticationProvider authProvider)
+        public LoginPage(AuthenticationStateProvider authProvider)
         {
             _authProvider = authProvider;
 
