@@ -4,7 +4,7 @@
     {
         public string Authority { get; set; } = null!;
 
-        public string Domain { get; set; } = null!;
+        public string DiscoveryBaseUrl { get; set; } = null!;
 
         public string ClientId { get; set; } = null!;
 
