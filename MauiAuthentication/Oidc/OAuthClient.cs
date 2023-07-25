@@ -28,7 +28,7 @@ namespace Maui.Authentication.Oidc
                 Scope = _settings.OAuthSettings.Scope,
                 RedirectUri = _settings.OAuthSettings.CallbackScheme
             });
-            _oidcClient.Options.Policy.Discovery.AdditionalEndpointBaseAddresses.Add(_settings.OAuthSettings.Authority);
+            _oidcClient.Options.Policy.Discovery.AdditionalEndpointBaseAddresses.Add(_settings.OAuthSettings.DiscoveryBaseUrl);
         }
 
         public void Initialize(WebView webView)
