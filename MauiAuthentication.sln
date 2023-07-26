@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication", "MauiAuthentication\MauiAuthentication.csproj", "{6FD485FC-46E1-417F-A20C-FAC470C9F86F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication.Maui", "MauiAuthentication.Maui\MauiAuthentication.Maui.csproj", "{6FD485FC-46E1-417F-A20C-FAC470C9F86F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication.Sample.Mobile", "Sample\MauiAuthentication.Sample.Mobile\MauiAuthentication.Sample.Mobile.csproj", "{007ED978-20BA-4D83-AFB4-117BA07BA4D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication.Sample.Maui", "Sample\MauiAuthentication.Sample.Maui\MauiAuthentication.Sample.Maui.csproj", "{007ED978-20BA-4D83-AFB4-117BA07BA4D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication.Sample.Api", "Sample\MauiAuthentication.Sample.Api\MauiAuthentication.Sample.Api.csproj", "{C3E2BED5-AAC7-4444-A518-5A813FE55534}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{6EA9A337-6E3B-4EA4-A60A-82528D20EE7F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication.Core", "MauiAuthentication.Core\MauiAuthentication.Core.csproj", "{F419AD9B-9FDB-4B36-8903-4E1501193A1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication.Blazor", "MauiAuthentication.Blazor\MauiAuthentication.Blazor.csproj", "{102C3792-48E6-4F8E-807A-E37089D47691}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiAuthentication.Sample.Blazor", "Sample\MauiAuthentication.Sample.Blazor\MauiAuthentication.Sample.Blazor.csproj", "{E4EA09E7-82FB-4D88-B578-15B97846E7D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,20 @@ Global
 		{C3E2BED5-AAC7-4444-A518-5A813FE55534}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E2BED5-AAC7-4444-A518-5A813FE55534}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3E2BED5-AAC7-4444-A518-5A813FE55534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F419AD9B-9FDB-4B36-8903-4E1501193A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F419AD9B-9FDB-4B36-8903-4E1501193A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F419AD9B-9FDB-4B36-8903-4E1501193A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F419AD9B-9FDB-4B36-8903-4E1501193A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102C3792-48E6-4F8E-807A-E37089D47691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102C3792-48E6-4F8E-807A-E37089D47691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102C3792-48E6-4F8E-807A-E37089D47691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102C3792-48E6-4F8E-807A-E37089D47691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{007ED978-20BA-4D83-AFB4-117BA07BA4D2} = {6EA9A337-6E3B-4EA4-A60A-82528D20EE7F}
 		{C3E2BED5-AAC7-4444-A518-5A813FE55534} = {6EA9A337-6E3B-4EA4-A60A-82528D20EE7F}
+		{E4EA09E7-82FB-4D88-B578-15B97846E7D4} = {6EA9A337-6E3B-4EA4-A60A-82528D20EE7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}

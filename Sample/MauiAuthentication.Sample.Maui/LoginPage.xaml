@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ma="clr-namespace:Maui.Authentication.Controls;assembly=MauiAuthentication"
+             x:Class="MauiAuthentication.Sample.Maui.Mobile.LoginPage">
+    <ContentPage.Content>
+        <StackLayout Margin="8" Spacing="8">
+            <Label x:Name="LabelLoginStatus" Text="" TextColor="Black"></Label>
+            
+            <ma:AuthenticateView>
+                <ma:AuthenticateView.Authenticated>
+                    <Button Clicked="ButtonGoAnyway_Clicked" Text="Go to main page"></Button>
+                </ma:AuthenticateView.Authenticated>
+                <ma:AuthenticateView.NotAuthenticated>
+                    <Button Clicked="ButtonGoAnyway_Clicked" Text="Go to main page anyway!"></Button>
+                </ma:AuthenticateView.NotAuthenticated>
+            </ma:AuthenticateView>
+
+            <Button Clicked="ButtonLogin_Clicked" Text="Login" x:Name="ButtonLogin"></Button>
+            <Button Clicked="ButtonLogout_Clicked" Text="Logout" x:Name="ButtonLogout"></Button>
+            <WebView x:Name="WebViewInstance" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
