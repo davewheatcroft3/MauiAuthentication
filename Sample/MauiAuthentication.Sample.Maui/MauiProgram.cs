@@ -1,5 +1,5 @@
-﻿using Maui.Authentication;
-using Maui.Authentication.Core;
+﻿using Maui.Authentication.Core;
+using Maui.Authentication.Maui;
 using MauiAuthentication.Sample.Maui.Data;
 
 namespace MauiAuthentication.Sample.Maui;

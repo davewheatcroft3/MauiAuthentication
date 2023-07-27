@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace Maui.Authentication;
+namespace Maui.Authentication.Maui;
 
 public class AuthenticationState
 {

@@ -1,4 +1,4 @@
-﻿namespace Maui.Authentication.Controls
+﻿namespace Maui.Authentication.Maui.Controls
 {
     /// <summary>
     /// Only way I could get view models binding nicely from DI for content views...

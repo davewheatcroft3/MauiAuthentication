@@ -1,4 +1,4 @@
-﻿using Maui.Authentication;
+﻿using Maui.Authentication.Maui;
 
 namespace MauiAuthentication.Sample.Maui
 {

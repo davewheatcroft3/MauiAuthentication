@@ -53,7 +53,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\MauiAuthentication.Blazor\MauiAuthentication.Blazor.csproj" />
+      <ProjectReference Include="..\..\MauiAuthentication.Core\MauiAuthentication.csproj" />
     </ItemGroup>
 
     <ItemGroup>

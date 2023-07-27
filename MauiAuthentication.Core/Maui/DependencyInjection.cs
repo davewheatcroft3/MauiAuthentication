@@ -3,7 +3,7 @@ using Maui.Authentication.Core.Configuration;
 using Maui.Authentication.Core.Oidc;
 using Maui.Authentication.Core.Oidc.Browser;
 
-namespace Maui.Authentication
+namespace Maui.Authentication.Maui
 {
     public static class DependencyInjection
     {

@@ -16,6 +16,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/davewheatcroft3/MauiAuthentication</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    includereferencedprojects 
     <PackageId>BlazorHybridAuth.Maui</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
@@ -24,11 +25,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MauiAuthentication.Core\MauiAuthentication.Core.csproj" />
+    <ProjectReference Include="..\MauiAuthentication.Core\MauiAuthentication.csproj" />
   </ItemGroup>
 
   <ItemGroup>

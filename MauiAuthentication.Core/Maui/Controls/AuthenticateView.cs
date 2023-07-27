@@ -1,4 +1,4 @@
-namespace Maui.Authentication.Controls;
+namespace Maui.Authentication.Maui.Controls;
 
 public class AuthenticateView : ContentView, IDisposable
 {
@@ -9,7 +9,7 @@ public class AuthenticateView : ContentView, IDisposable
 
     public AuthenticateView()
     {
-        _authProvider = Maui.Authentication.Controls.ServiceProvider.GetService<AuthenticationStateProvider>()
+        _authProvider = ServiceProvider.GetService<AuthenticationStateProvider>()
             ?? throw new Exception("You ensure the AddMauiAuthentication DI extension method has been called");
 
         _authProvider.StateChanged += AuthProvider_StateChanged;

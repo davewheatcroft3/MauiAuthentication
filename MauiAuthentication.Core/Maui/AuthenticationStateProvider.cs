@@ -2,7 +2,7 @@ using Maui.Authentication.Core;
 using Maui.Authentication.Core.Oidc;
 using Maui.Authentication.Core.Persistance;
 
-namespace Maui.Authentication;
+namespace Maui.Authentication.Maui;
 
 public class AuthenticationStateProvider
 {
