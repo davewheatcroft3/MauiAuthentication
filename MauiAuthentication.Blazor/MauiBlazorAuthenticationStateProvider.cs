@@ -10,7 +10,7 @@ namespace Mau.Authentication.Blazor
         private readonly AuthClient _authClient;
         private readonly ITokenProvider _tokenProvider;
 
-        private ClaimsPrincipal _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
+        private ClaimsPrincipal? _currentUser = null;
 
         public MauiBlazorAuthenticationStateProvider(AuthClient client, ITokenProvider tokenProvider)
         {
@@ -20,9 +20,12 @@ namespace Mau.Authentication.Blazor
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            await Initialize();
+            if (_currentUser == null)
+            {
+                await Initialize();
+            }
 
-            return new AuthenticationState(_currentUser);
+            return new AuthenticationState(_currentUser!);
         }
 
         public async Task LoginAsync()
@@ -57,6 +60,8 @@ namespace Mau.Authentication.Blazor
         {
             await _authClient.LogoutAsync();
 
+            await _tokenProvider.ClearAllAsync();
+
             _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
 
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
@@ -64,11 +69,16 @@ namespace Mau.Authentication.Blazor
 
         private async Task Initialize()
         {
+            var tokens = await _tokenProvider.GetTokensAsync();
             var claims = await _tokenProvider.GetClaimsAsync();
 
-            if (claims != null)
+            if (claims != null && tokens  != null && DateTime.Now < tokens.Expires)
             {
-                _currentUser = new ClaimsPrincipal(new ClaimsIdentity(claims.Select(x => new Claim(x.Name, x.Value))));
+                _currentUser = new ClaimsPrincipal(new ClaimsIdentity(claims.Select(x => new Claim(x.Name, x.Value)), "none"));
+            }
+            else
+            {
+                _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
             }
         }
     }

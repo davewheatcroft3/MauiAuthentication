@@ -14,6 +14,8 @@
 
         public string LogoutUrl { get; set; } = null!;
 
+        public string? LogoutReturnUriQueryParameterName { get; set; } = null!;
+
         public string ResponseType { get; set; } = null!;
 
         public string Scope { get; set; } = null!;

@@ -7,6 +7,9 @@
 <PageTitle>Index</PageTitle>
 
 <AuthorizeView>
+    <Authorizing>
+        <p>Authorizing...</p>
+    </Authorizing>
     <Authorized>
         <h1>Hello, authenticated user!</h1>
         <button @onclick="LogoutAsync">
@@ -31,8 +34,6 @@
     private async Task LoginAsync()
     {
         await AuthenticationStateProvider.LoginAsync();
-
-        StateHasChanged();
     }
 
     private async Task LogoutAsync()

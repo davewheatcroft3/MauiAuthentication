@@ -2,10 +2,8 @@
 {
     public interface IPopupProvider
     {
-        Task<ContentPage> GetGeneratedPageAsync();
+        Task<ContentPage> AddToViewAsync();
 
-        Task AddToViewAsync(ContentPage page);
-
-        Task RemoveFromViewAsync(ContentPage page);
+        Task RemoveFromViewAsync();
     }
 }

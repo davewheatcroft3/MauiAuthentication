@@ -29,6 +29,7 @@ public static class MauiProgram
             options.OAuthSettings.Scope = "openid";
             options.OAuthSettings.ResponseType = "code";
             options.OAuthSettings.LogoutUrl = "https://dev-khkwv2u0z51n71ze.us.auth0.com/logout";
+            options.OAuthSettings.LogoutReturnUriQueryParameterName = "returnTo";
             options.OAuthSettings.CallbackScheme = "mauiauthapp://callback";
         });
 

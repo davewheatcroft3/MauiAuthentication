@@ -13,36 +13,35 @@ namespace Maui.Authentication.Core.Oidc.Browser
 
         public async Task<BrowserResult> InvokeAsync(BrowserOptions options, CancellationToken cancellationToken = default)
         {
-            var page = await _popupProvider.GetGeneratedPageAsync();
+            var tcs = new TaskCompletionSource<BrowserResult>();
+
+            var page = await _popupProvider.AddToViewAsync();
 
             var webView = new WebView();
             page.Content = webView;
 
-            var tcs = new TaskCompletionSource<BrowserResult>();
-
             webView.Navigated += (sender, e) =>
             {
-                if (e.Url.StartsWith(options.EndUrl))
+                if (e.Url.StartsWith(options.EndUrl) || cancellationToken.IsCancellationRequested)
                 {
                     if (tcs.Task.Status != TaskStatus.RanToCompletion)
                     {
                         tcs.SetResult(new BrowserResult
                         {
-                            ResultType = BrowserResultType.Success,
+                            ResultType = cancellationToken.IsCancellationRequested
+                                ? BrowserResultType.UserCancel
+                                : BrowserResultType.Success,
                             Response = e.Url.ToString()
                         });
                     }
                 }
-
             };
-
-            await _popupProvider.AddToViewAsync(page);
 
             webView.Source = new UrlWebViewSource { Url = options.StartUrl };
 
             var result = await tcs.Task;
 
-            _ = _popupProvider.RemoveFromViewAsync(page);
+            await _popupProvider.RemoveFromViewAsync();
 
             return result;
         }

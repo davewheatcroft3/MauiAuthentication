@@ -11,29 +11,21 @@
             _application = application;
         }
 
-        public Task<ContentPage> GetGeneratedPageAsync()
-        {
-            var page = new ContentPage();
-
-            if (_application.MainPage is Shell)
-            {
-                Shell.SetPresentationMode(page, PresentationMode.Modal);
-            }
-
-            return Task.FromResult(page);
-        }
-
-        public async Task AddToViewAsync(ContentPage page)
+        public async Task<ContentPage> AddToViewAsync()
         {
             if (_application.MainPage is Shell shell)
             {
-                Routing.RegisterRoute(_route, typeof(ContentPage));
-
+                Routing.RegisterRoute(_route, typeof(MauiAuthenticatorPage));
                 await shell.GoToAsync(_route);
+
+                return (shell.CurrentPage as ContentPage)!;
             }
             else if (_application.MainPage is NavigationPage navigationPage)
             {
+                var page = new ContentPage();
                 await navigationPage.Navigation.PushModalAsync(page);
+
+                return page;
             }
             else
             {
@@ -41,14 +33,14 @@
                     "You must implement either Shell or NavigationPage navigation to use this popup provider. " +
                     "You could implement your own IPopupProvider if, for example, you wanted to use a library like Mopups.");
             }
+
         }
 
-        public async Task RemoveFromViewAsync(ContentPage page)
+        public async Task RemoveFromViewAsync()
         {
             if (_application.MainPage is Shell shell)
             {
                 Routing.UnRegisterRoute(_route);
-
                 await shell.GoToAsync("..");
             }
             else if (_application.MainPage is NavigationPage navigationPage)

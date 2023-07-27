@@ -43,12 +43,13 @@ namespace Maui.Authentication.Core.Oidc
             return await _oidcClient.RefreshTokenAsync(refreshToken);
         }
 
-        public virtual Task LogoutAsync()
+        public async Task LogoutAsync()
         {
+            var returnUriName = _settings.OAuthSettings.LogoutReturnUriQueryParameterName ?? "redirect_uri";
             var logoutParameters = new Dictionary<string, string>
             {
               {"client_id", _oidcClient.Options.ClientId },
-              {"redirect_uri", _oidcClient.Options.RedirectUri },
+              {returnUriName, _oidcClient.Options.RedirectUri },
               {"response_type", _settings.OAuthSettings.ResponseType },
               {"scope", _settings.OAuthSettings.Scope }
             };
@@ -62,12 +63,7 @@ namespace Maui.Authentication.Core.Oidc
                 DisplayMode = DisplayMode.Hidden
             };
 
-            // NOTE: since we dont care about this as long as it succeeded (arguably either way as far as the app/user is concerned)
-            // We dont wait for this to finish. For OAuth providers ive seen it will redirect back to the login page anyway, which the
-            // app user might not want
-            _ = _oidcClient.Options.Browser.InvokeAsync(browserOptions);
-
-            return Task.CompletedTask;
+            await _oidcClient.Options.Browser.InvokeAsync(browserOptions);
         }
     }
 }
