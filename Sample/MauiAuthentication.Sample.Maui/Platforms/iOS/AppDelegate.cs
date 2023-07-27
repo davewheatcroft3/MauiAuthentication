@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace MauiAuthentication.Sample.Maui.Mobile;
+namespace MauiAuthentication.Sample.Maui;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

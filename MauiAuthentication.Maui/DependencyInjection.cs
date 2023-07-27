@@ -24,6 +24,9 @@ namespace Maui.Authentication
                 settings.OAuthSettings.CallbackScheme = WebViewCallbackScheme;
             };
             services.AddMauiAuthenticationCore(optionsOverride);
+
+            services.AddTransient<MauiAuthenticatorPage>();
+            services.AddTransient<IPopupProvider>(_ => new ModalPopupProvider(Application.Current!));
             services.AddTransient<IdentityModel.OidcClient.Browser.IBrowser, PopupWebViewBrowser>();
 #else
             services.AddMauiAuthenticationCore(options);

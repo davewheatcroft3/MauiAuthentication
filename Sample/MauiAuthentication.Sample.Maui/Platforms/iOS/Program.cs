@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace MauiAuthentication.Sample.Maui.Mobile;
+namespace MauiAuthentication.Sample.Maui;
 
 public class Program
 {

@@ -1,6 +1,6 @@
 ﻿using Maui.Authentication;
 
-namespace MauiAuthentication.Sample.Maui.Mobile
+namespace MauiAuthentication.Sample.Maui
 {
     public partial class LoginPage : ContentPage
     {
@@ -11,10 +11,6 @@ namespace MauiAuthentication.Sample.Maui.Mobile
             _authProvider = authProvider;
 
             InitializeComponent();
-
-#if WINDOWS
-            _authProvider.UseWebView(WebViewInstance);
-#endif
         }
 
         protected override async void OnAppearing()

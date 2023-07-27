@@ -1,4 +1,4 @@
-﻿namespace MauiAuthentication.Sample.Maui.Mobile;
+﻿namespace MauiAuthentication.Sample.Maui;
 
 public partial class App : Application
 {

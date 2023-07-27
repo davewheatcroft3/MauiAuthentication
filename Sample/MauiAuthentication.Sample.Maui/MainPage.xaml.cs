@@ -1,7 +1,7 @@
-﻿using MauiAuthentication.Sample.Maui.Mobile.Data;
+﻿using MauiAuthentication.Sample.Maui.Data;
 using System.Net;
 
-namespace MauiAuthentication.Sample.Maui.Mobile;
+namespace MauiAuthentication.Sample.Maui;
 
 public partial class MainPage : ContentPage
 {

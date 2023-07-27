@@ -8,6 +8,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Maui.Authentication.Blazor</RootNamespace>
     <Nullable>enable</Nullable>
+
+    <Title>MAUI-Blazor Authentication</Title>
+    <Description>A working OAuth authentication project for MAUI-Blazor-Hybrid without horrendous amounts of boilerplate!</Description>
+    <Copyright>Dave Wheatcroft</Copyright>
+    <PackageProjectUrl>https://github.com/davewheatcroft3/MauiAuthentication</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/davewheatcroft3/MauiAuthentication</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>BlazorHybridAuth.Maui</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Version>1.0.0</Version>
+    <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

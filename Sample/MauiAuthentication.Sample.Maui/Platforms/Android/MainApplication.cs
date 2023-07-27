@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace MauiAuthentication.Sample.Maui.Mobile;
+namespace MauiAuthentication.Sample.Maui;
 
 [Application]
 public class MainApplication : MauiApplication

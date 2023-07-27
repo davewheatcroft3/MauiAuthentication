@@ -1,4 +1,4 @@
-namespace MauiAuthentication.Sample.Maui.Mobile.Data
+namespace MauiAuthentication.Sample.Maui.Data
 {
     public class WeatherForecast
     {

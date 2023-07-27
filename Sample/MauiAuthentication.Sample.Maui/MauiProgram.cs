@@ -1,8 +1,8 @@
 ﻿using Maui.Authentication;
 using Maui.Authentication.Core;
-using MauiAuthentication.Sample.Maui.Mobile.Data;
+using MauiAuthentication.Sample.Maui.Data;
 
-namespace MauiAuthentication.Sample.Maui.Mobile;
+namespace MauiAuthentication.Sample.Maui;
 
 public static class MauiProgram
 {

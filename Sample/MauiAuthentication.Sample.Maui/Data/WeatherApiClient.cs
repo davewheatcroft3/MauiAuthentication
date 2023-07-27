@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 
-namespace MauiAuthentication.Sample.Maui.Mobile.Data
+namespace MauiAuthentication.Sample.Maui.Data
 {
     public class WeatherApiClient
     {

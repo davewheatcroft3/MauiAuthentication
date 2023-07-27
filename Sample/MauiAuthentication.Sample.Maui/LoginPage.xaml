@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ma="clr-namespace:Maui.Authentication.Controls;assembly=MauiAuthentication"
-             x:Class="MauiAuthentication.Sample.Maui.Mobile.LoginPage">
+             xmlns:ma="clr-namespace:Maui.Authentication.Controls;assembly=MauiAuthentication.Maui"
+             x:Class="MauiAuthentication.Sample.Maui.LoginPage">
     <ContentPage.Content>
         <StackLayout Margin="8" Spacing="8">
             <Label x:Name="LabelLoginStatus" Text="" TextColor="Black"></Label>

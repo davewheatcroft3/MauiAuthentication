@@ -3,7 +3,7 @@
 using Android.App;
 using Android.Content.PM;
 
-namespace MauiAuthentication.Sample.Maui.Mobile;
+namespace MauiAuthentication.Sample.Maui;
 
 [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop, Exported = true)]
 [IntentFilter(new[] { Android.Content.Intent.ActionView },
