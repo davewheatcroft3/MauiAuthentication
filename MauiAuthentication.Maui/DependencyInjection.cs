@@ -1,21 +1,35 @@
 ﻿using Maui.Authentication.Core;
 using Maui.Authentication.Core.Configuration;
 using Maui.Authentication.Core.Oidc;
+using Maui.Authentication.Core.Oidc.Browser;
 
 namespace Maui.Authentication
 {
     public static class DependencyInjection
     {
+        private const string WebViewCallbackScheme = "http://localhost/callback";
+
         public static void AddMauiAuthentication(this IServiceCollection services, Action<MauiAuthenticationSettings> options)
         {
-            services.AddMauiAuthenticationCore(options);
-
-            services.AddSingleton<MauiAuthClient>();
-            services.AddSingleton<AuthClient, MauiAuthClient>();
+            services.AddSingleton<AuthClient>();
 
             services.AddSingleton<TokenService>();
 
             services.AddSingleton<AuthenticationStateProvider>();
+
+#if WINDOWS
+            var optionsOverride = (MauiAuthenticationSettings settings) =>
+            {
+                options(settings);
+                settings.OAuthSettings.CallbackScheme = WebViewCallbackScheme;
+            };
+            services.AddMauiAuthenticationCore(optionsOverride);
+            services.AddTransient<IdentityModel.OidcClient.Browser.IBrowser, PopupWebViewBrowser>();
+#else
+            services.AddMauiAuthenticationCore(options);
+            services.AddTransient<IdentityModel.OidcClient.Browser.IBrowser, WebAuthenticatorBrowser>();
+
+#endif
         }
     }
 }

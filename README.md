@@ -8,7 +8,7 @@ Seems Microsoft in general doesnt want to make it easy for us regarding authenti
 
 The IdentityModel.OidcClient is of great help to minimize the complicate OAuth flow steps, but still requires a fair amount of setup and bits that new users will have to play about with to get it right. The goal of this project is so only a few lines of setup (and the unavoidable platform specific requirements... sigh) allows us to authenticate our app and http clients!
 
-This library uses the concepts from Blazor - AuthenticationState and AuthenticationStateProvider as well as an injectable ITokenProvider (in this case the in built MAUI preferences system is used - but you can inject your own). The sample project uses a sample OAuth client to show the flow.
+This library utilizes the concept of popup providers for authenticating and makes the process of using utilizing webviews or webauthenticator easier with little to no setup.
 
 If you encounter any issues that might be related to your OAuth server setup, this is a great way to test everything works:
 
@@ -17,15 +17,17 @@ https://openidconnect.net/
 This was a great reference for helping simplify my initial setup:
 
 https://auth0.com/blog/add-authentication-to-dotnet-maui-apps-with-auth0/
+https://auth0.com/blog/add-authentication-to-blazor-hybrid-apps-in-dotnet-maui/
 
-NOTE: To run the sample project, ensure both the Api AND Mobile app are running for api call to work. It easiest just to run them in sample Visual Studio instances as you can choose your setup for the mobile app when using multiple startup projects (or at least I dont know of a way!).
+NOTE: To run the sample project, ensure both the Api AND Blazor/MAUI app are running for api call to work. It easiest just to run them in sample Visual Studio instances as you can choose your setup for the mobile app when using multiple startup projects (or at least I dont know of a way!).
 
 ## Installation
 
 ### Required Steps
-1. Install Nuget package
+1. Install Nuget package (MAUI/MAUI-Blazor-Hybrid)
 ```
 Install-Package BlazorLikeAuth.Maui
+Install-Package BlazorHybridAuth.Maui
 ```
 
 2. In your Program.cs add
@@ -45,6 +47,7 @@ builder.Services.AddMauiAuthentication(options =>
     options.OAuthSettings.CallbackScheme = "mauiauthapp://callback"; // Your callback uri for your app
 });
 ```
+(Or AddMauiBlazorAuthentication for the MAUI Blazor Hybrid version)
 
 3. Ensure your http clients authenticate by setting them up via this helper extension:
 ```cs
@@ -100,7 +103,7 @@ Add to the Package.appxmanifest file:
 ```
 
 ## Other Things Of Note
-There is an AuthenticateView control (mimicking Blazors equivalent).
+There is an AuthenticateView control for the MAUI library variant(mimicking Blazors equivalent).
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage ...
@@ -119,3 +122,29 @@ There is an AuthenticateView control (mimicking Blazors equivalent).
 
 Also may potentially add an Authenticate attribute on a per page level...
 
+For MAUI Blazor Hybrid, make sure to use CascadingAuthenticationState in your route component:
+
+```xml
+@using Microsoft.AspNetCore.Components.Authorization
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Main).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing>
+                    <p>Authorizing...</p>
+                </Authorizing>
+                <NotAuthorized>
+                    <p>Not Authorized</p>
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+```

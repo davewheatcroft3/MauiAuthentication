@@ -1,6 +1,5 @@
 ﻿using Maui.Authentication.Core.Configuration;
 using Maui.Authentication.Core.Handlers;
-using Maui.Authentication.Core.Oidc;
 using Maui.Authentication.Core.Persistance;
 
 namespace Maui.Authentication.Core
@@ -18,8 +17,6 @@ namespace Maui.Authentication.Core
                 options.UseIdTokenForHttpAuthentication = settings.UseIdTokenForHttpAuthentication;
                 options.OAuthSettings = settings.OAuthSettings ?? throw new Exception("Must set all OAuth properties");
             });
-
-            services.AddSingleton<AuthClient>();
 
             services.AddScoped<ITokenProvider, PreferencesTokenProvider>();
 

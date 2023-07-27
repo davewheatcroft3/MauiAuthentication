@@ -1,4 +1,4 @@
-﻿using Maui.Authentication.Blazor.Oidc;
+﻿using Maui.Authentication.Core.Oidc;
 using Maui.Authentication.Core.Persistance;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
@@ -7,40 +7,28 @@ namespace Mau.Authentication.Blazor
 {
     public class MauiBlazorAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly MauiBlazorAuthClient auth0Client;
+        private readonly AuthClient _authClient;
         private readonly ITokenProvider _tokenProvider;
 
-        private ClaimsPrincipal currentUser = new ClaimsPrincipal(new ClaimsIdentity());
+        private ClaimsPrincipal _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
 
-        public MauiBlazorAuthenticationStateProvider(MauiBlazorAuthClient client, ITokenProvider tokenProvider)
+        public MauiBlazorAuthenticationStateProvider(AuthClient client, ITokenProvider tokenProvider)
         {
-            auth0Client = client;
+            _authClient = client;
             _tokenProvider = tokenProvider;
         }
 
-        public override Task<AuthenticationState> GetAuthenticationStateAsync() =>
-            Task.FromResult(new AuthenticationState(currentUser));
-
-        public Task LoginAsync()
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var loginTask = LogInAsyncCore();
-            NotifyAuthenticationStateChanged(loginTask);
+            await Initialize();
 
-            return loginTask;
-
-            async Task<AuthenticationState> LogInAsyncCore()
-            {
-                var user = await LoginWithAuth0Async();
-                currentUser = user;
-
-                return new AuthenticationState(currentUser);
-            }
+            return new AuthenticationState(_currentUser);
         }
 
-        private async Task<ClaimsPrincipal> LoginWithAuth0Async()
+        public async Task LoginAsync()
         {
             var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity());
-            var loginResult = await auth0Client.LoginAsync();
+            var loginResult = await _authClient.LoginAsync();
 
             if (!loginResult.IsError)
             {
@@ -50,18 +38,38 @@ namespace Mau.Authentication.Blazor
                     loginResult.RefreshToken,
                     loginResult.AccessTokenExpiration));
 
+                var claims = loginResult.User.Claims
+                    .Select(x => (x.Type, x.Value))
+                    .ToList();
+
+                await _tokenProvider.SetClaimsAsync(claims);
+
                 authenticatedUser = loginResult.User;
             }
-            return authenticatedUser;
+
+            _currentUser = authenticatedUser;
+
+            var state = new AuthenticationState(_currentUser);
+            NotifyAuthenticationStateChanged(Task.FromResult(state));
         }
 
         public async Task LogoutAsync()
         {
-            await auth0Client.LogoutAsync();
+            await _authClient.LogoutAsync();
 
-            currentUser = new ClaimsPrincipal(new ClaimsIdentity());
+            _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
 
-            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(currentUser)));
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
+        }
+
+        private async Task Initialize()
+        {
+            var claims = await _tokenProvider.GetClaimsAsync();
+
+            if (claims != null)
+            {
+                _currentUser = new ClaimsPrincipal(new ClaimsIdentity(claims.Select(x => new Claim(x.Name, x.Value))));
+            }
         }
     }
 }

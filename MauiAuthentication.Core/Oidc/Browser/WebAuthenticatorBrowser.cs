@@ -1,7 +1,7 @@
 ﻿using IdentityModel.Client;
 using IdentityModel.OidcClient.Browser;
 
-namespace Maui.Authentication.Core.Oidc
+namespace Maui.Authentication.Core.Oidc.Browser
 {
     public class WebAuthenticatorBrowser : IdentityModel.OidcClient.Browser.IBrowser
     {

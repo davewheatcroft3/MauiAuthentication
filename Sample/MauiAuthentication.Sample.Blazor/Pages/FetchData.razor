@@ -1,6 +1,6 @@
 ﻿@page "/fetchdata"
 
-@using Mau.Authentication.Blazor;
+@using Mau.Authentication.Blazor
 @using MauiAuthentication.Sample.Blazor.Data
 @using Microsoft.AspNetCore.Components.Authorization
 @inject WeatherApiClient ForecastService
@@ -43,7 +43,7 @@
     </Authorized>
     <NotAuthorized>
         <p>You must be authorized to view this data. Click below to sign in.</p>
-        <button @onclick="async () => await AuthenticationStateProvider.LoginAsync()">
+        <button @onclick="LoginAsync">
             Sign In
         </button>
     </NotAuthorized>
@@ -54,6 +54,17 @@
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync();
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity.IsAuthenticated)
+        {
+            forecasts = await ForecastService.GetForecastAsync();
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task LoginAsync()
+    {
+        await AuthenticationStateProvider.LoginAsync();
     }
 }

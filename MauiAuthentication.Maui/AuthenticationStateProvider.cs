@@ -6,12 +6,12 @@ namespace Maui.Authentication;
 
 public class AuthenticationStateProvider
 {
-    private readonly MauiAuthClient _authClient;
+    private readonly AuthClient _authClient;
     private readonly ITokenProvider _tokenProvider;
     private readonly TokenService _tokenService;
 
     public AuthenticationStateProvider(
-        MauiAuthClient authClient,
+        AuthClient authClient,
         ITokenProvider tokenProvider,
         TokenService tokenService)
     {
@@ -34,26 +34,21 @@ public class AuthenticationStateProvider
 
     public event EventHandler<AuthenticationState>? StateChanged;
 
-    public void UseWebView(WebView webView)
-    {
-        _authClient.InitializeWithWebView(webView);
-    }
-
     public async Task<bool> LoginAsync()
     {
         var result = await _authClient.LoginAsync();
 
         if (!result.IsError)
         {
-            var claims = result.User.Claims
-                .Select(x => (x.Type, x.Value))
-                .ToList();
-
             await _tokenProvider.SetTokensAsync(new Tokens(
                 result.IdentityToken,
                 result.AccessToken,
                 result.RefreshToken,
                 result.AccessTokenExpiration));
+
+            var claims = result.User.Claims
+                .Select(x => (x.Type, x.Value))
+                .ToList();
 
             await _tokenProvider.SetClaimsAsync(claims);
 

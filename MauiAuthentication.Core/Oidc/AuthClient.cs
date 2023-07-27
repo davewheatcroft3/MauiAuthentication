@@ -4,7 +4,10 @@ using IdentityModel.OidcClient.Browser;
 using IdentityModel.OidcClient.Results;
 using Maui.Authentication.Core.Configuration;
 using Microsoft.Extensions.Options;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("MauiAuthentication.Blazor")]
+[assembly: InternalsVisibleTo("MauiAuthentication.Maui")]
 namespace Maui.Authentication.Core.Oidc
 {
     public class AuthClient
@@ -12,7 +15,9 @@ namespace Maui.Authentication.Core.Oidc
         protected readonly OidcClient _oidcClient;
         private readonly MauiAuthenticationSettings _settings;
 
-        public AuthClient(IOptions<MauiAuthenticationSettings> options)
+        public AuthClient(
+            IdentityModel.OidcClient.Browser.IBrowser browser,
+            IOptions<MauiAuthenticationSettings> options)
         {
             _settings = options.Value;
 
@@ -23,7 +28,7 @@ namespace Maui.Authentication.Core.Oidc
                 ClientSecret = _settings.OAuthSettings.ClientSecret,
                 Scope = _settings.OAuthSettings.Scope,
                 RedirectUri = _settings.OAuthSettings.CallbackScheme,
-                Browser = new WebAuthenticatorBrowser()
+                Browser = browser
             });
             _oidcClient.Options.Policy.Discovery.AdditionalEndpointBaseAddresses.Add(_settings.OAuthSettings.DiscoveryBaseUrl);
         }

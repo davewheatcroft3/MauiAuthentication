@@ -1,32 +1,29 @@
 ﻿using IdentityModel.OidcClient.Browser;
 
-namespace Maui.Authentication.Oidc
+namespace Maui.Authentication.Core.Oidc.Browser
 {
-    public class WebViewBrowser : IdentityModel.OidcClient.Browser.IBrowser
+    public class PopupWebViewBrowser : IdentityModel.OidcClient.Browser.IBrowser
     {
-        private readonly WebView _webView;
+        private readonly IPopupProvider _popupProvider;
 
-        public WebViewBrowser(WebView webView)
+        public PopupWebViewBrowser(IPopupProvider popupProvider)
         {
-            _webView = webView;
-        }
-
-        public void EnsureNotVisible()
-        {
-            _webView.WidthRequest = 0;
-            _webView.HeightRequest = 0;
+            _popupProvider = popupProvider;
         }
 
         public async Task<BrowserResult> InvokeAsync(BrowserOptions options, CancellationToken cancellationToken = default)
         {
+            var page = await _popupProvider.GetGeneratedPageAsync();
+
+            var webView = new WebView();
+            page.Content = webView;
+
             var tcs = new TaskCompletionSource<BrowserResult>();
 
-            _webView.Navigated += (sender, e) =>
+            webView.Navigated += (sender, e) =>
             {
                 if (e.Url.StartsWith(options.EndUrl))
                 {
-                    _webView.WidthRequest = 0;
-                    _webView.HeightRequest = 0;
                     if (tcs.Task.Status != TaskStatus.RanToCompletion)
                     {
                         tcs.SetResult(new BrowserResult
@@ -39,11 +36,15 @@ namespace Maui.Authentication.Oidc
 
             };
 
-            _webView.WidthRequest = 600;
-            _webView.HeightRequest = 600;
-            _webView.Source = new UrlWebViewSource { Url = options.StartUrl };
+            await _popupProvider.AddToViewAsync(page);
 
-            return await tcs.Task;
+            webView.Source = new UrlWebViewSource { Url = options.StartUrl };
+
+            var result = await tcs.Task;
+
+            _ = _popupProvider.RemoveFromViewAsync(page);
+
+            return result;
         }
     }
 }

@@ -46,7 +46,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\MauiAuthentication\MauiAuthentication.Maui.csproj" />
+	  <ProjectReference Include="..\..\MauiAuthentication.Maui\MauiAuthentication.Maui.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

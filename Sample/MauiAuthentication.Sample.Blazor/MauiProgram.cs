@@ -24,7 +24,7 @@ namespace MauiAuthentication.Sample.Blazor
 		    builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddMauiAuthenticationBlazor(options =>
+            builder.Services.AddMauiBlazorAuthentication(options =>
             {
                 options.UseIdTokenForHttpAuthentication = true;
                 options.RefreshExpiryClockSkewInMinutes = 2;
