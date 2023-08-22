@@ -17,6 +17,11 @@ namespace Maui.Authentication.Maui
 
             services.AddSingleton<AuthenticationStateProvider>();
 
+            services.AddMauiAuthenticationShared(options);
+        }
+
+        internal static void AddMauiAuthenticationShared(this IServiceCollection services, Action<MauiAuthenticationSettings> options)
+        {
 #if WINDOWS
             var optionsOverride = (MauiAuthenticationSettings settings) =>
             {
@@ -31,7 +36,6 @@ namespace Maui.Authentication.Maui
 #else
             services.AddMauiAuthenticationCore(options);
             services.AddTransient<IdentityModel.OidcClient.Browser.IBrowser, WebAuthenticatorBrowser>();
-
 #endif
         }
     }
