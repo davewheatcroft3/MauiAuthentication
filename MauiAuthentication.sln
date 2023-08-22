@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication", "MauiAuthentication.Core\MauiAuthentication.csproj", "{F419AD9B-9FDB-4B36-8903-4E1501193A1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAuthentication", "MauiAuthentication\MauiAuthentication.csproj", "{F419AD9B-9FDB-4B36-8903-4E1501193A1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{6EA9A337-6E3B-4EA4-A60A-82528D20EE7F}"
 EndProject
