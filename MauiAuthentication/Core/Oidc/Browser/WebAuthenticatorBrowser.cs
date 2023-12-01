@@ -1,5 +1,6 @@
 ﻿using IdentityModel.Client;
 using IdentityModel.OidcClient.Browser;
+using Microsoft.Maui.Authentication;
 
 namespace Maui.Authentication.Core.Oidc.Browser
 {

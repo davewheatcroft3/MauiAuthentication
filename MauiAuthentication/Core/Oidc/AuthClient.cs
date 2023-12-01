@@ -5,6 +5,7 @@ using IdentityModel.OidcClient.Results;
 using Maui.Authentication.Core.Configuration;
 using Microsoft.Extensions.Options;
 using System.Runtime.CompilerServices;
+using Microsoft.Maui.ApplicationModel;
 
 [assembly: InternalsVisibleTo("MauiAuthentication.Blazor")]
 [assembly: InternalsVisibleTo("MauiAuthentication.Maui")]

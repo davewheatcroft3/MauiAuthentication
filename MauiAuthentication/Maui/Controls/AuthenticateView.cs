@@ -9,7 +9,10 @@ public class AuthenticateView : ContentView, IDisposable
 
     public AuthenticateView()
     {
-        _authProvider = ServiceProvider.GetService<AuthenticationStateProvider>()
+        var serviceProvider = IPlatformApplication.Current?.Services
+            ?? throw new Exception(nameof(IPlatformApplication.Current));
+
+        _authProvider = serviceProvider.GetService<AuthenticationStateProvider>()
             ?? throw new Exception("You ensure the AddMauiAuthentication DI extension method has been called");
 
         _authProvider.StateChanged += AuthProvider_StateChanged;

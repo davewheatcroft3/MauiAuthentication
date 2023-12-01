@@ -1,7 +1,6 @@
 ﻿using Maui.Authentication.Blazor;
 using Maui.Authentication.Core;
 using MauiAuthentication.Sample.Blazor.Data;
-using Microsoft.Extensions.Logging;
 
 namespace MauiAuthentication.Sample.Blazor
 {
@@ -21,7 +20,6 @@ namespace MauiAuthentication.Sample.Blazor
 
 #if DEBUG
 		    builder.Services.AddBlazorWebViewDeveloperTools();
-		    builder.Logging.AddDebug();
 #endif
 
             builder.Services.AddMauiBlazorAuthentication(options =>
