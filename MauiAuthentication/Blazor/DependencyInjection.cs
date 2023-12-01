@@ -15,7 +15,7 @@ namespace Maui.Authentication.Blazor
             services.AddScoped<Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>(sp => sp.GetRequiredService<MauiBlazorAuthenticationStateProvider>());
 
             services.AddTransient<MauiAuthenticatorPage>();
-            services.AddTransient<IPopupProvider>(_ => new ModalPopupProvider(Application.Current!));
+            services.AddTransient<IPopupProvider, ModalPopupProvider>();
             services.AddTransient<IdentityModel.OidcClient.Browser.IBrowser, PopupWebViewBrowser>();
 
             services.AddSingleton<AuthClient>();

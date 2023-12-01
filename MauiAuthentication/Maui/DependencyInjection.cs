@@ -31,7 +31,7 @@ namespace Maui.Authentication.Maui
             services.AddMauiAuthenticationCore(optionsOverride);
 
             services.AddTransient<MauiAuthenticatorPage>();
-            services.AddTransient<IPopupProvider>(_ => new ModalPopupProvider(Application.Current!));
+            services.AddTransient<IPopupProvider, ModalPopupProvider>();
             services.AddTransient<IdentityModel.OidcClient.Browser.IBrowser, PopupWebViewBrowser>();
 #else
             services.AddMauiAuthenticationCore(options);

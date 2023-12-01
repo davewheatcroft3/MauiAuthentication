@@ -2,25 +2,19 @@
 {
     public class ModalPopupProvider : IPopupProvider
     {
-        private readonly Application _application;
-
         private const string _route = "MauiAuthenticatcationPopup";
-
-        public ModalPopupProvider(Application application)
-        {
-            _application = application;
-        }
 
         public async Task<ContentPage> AddToViewAsync()
         {
-            if (_application.MainPage is Shell shell)
+            var application = Application.Current ?? throw new Exception("Access to current application required");
+            if (application.MainPage is Shell shell)
             {
                 Routing.RegisterRoute(_route, typeof(MauiAuthenticatorPage));
                 await shell.GoToAsync(_route);
 
                 return (shell.CurrentPage as ContentPage)!;
             }
-            else if (_application.MainPage is NavigationPage navigationPage)
+            else if (application.MainPage is NavigationPage navigationPage)
             {
                 var page = new ContentPage();
                 await navigationPage.Navigation.PushModalAsync(page);
@@ -38,12 +32,13 @@
 
         public async Task RemoveFromViewAsync()
         {
-            if (_application.MainPage is Shell shell)
+            var application = Application.Current ?? throw new Exception("Access to current application required");
+            if (application.MainPage is Shell shell)
             {
                 Routing.UnRegisterRoute(_route);
                 await shell.GoToAsync("..");
             }
-            else if (_application.MainPage is NavigationPage navigationPage)
+            else if (application.MainPage is NavigationPage navigationPage)
             {
                 await navigationPage.Navigation.PopModalAsync();
             }
