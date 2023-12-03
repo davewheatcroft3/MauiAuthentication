@@ -15,11 +15,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/davewheatcroft3/MauiAuthentication</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageId>BlazorLikeAuth.Maui</PackageId>
+    <PackageId>Auth.Maui.BlazorHybrid</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>1.2.0</Version>
-    <PackageVersion>1.2.0</PackageVersion>
+    <Version>1.0.1</Version>
+    <PackageVersion>1.0.1</PackageVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>

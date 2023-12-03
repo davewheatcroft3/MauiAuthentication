@@ -33,8 +33,8 @@ namespace MauiAuthentication.Sample.Blazor
                 options.OAuthSettings.ClientSecret = "vdtMtrVWPtGWl9BbUWZ7hoksUoNldoryANueBqRwN9AJ_2xGC-lN0_U0Msbkmr5p";
                 options.OAuthSettings.Scope = "openid";
                 options.OAuthSettings.ResponseType = "code";
-                options.OAuthSettings.LogoutUrl = "https://dev-khkwv2u0z51n71ze.us.auth0.com/logout";
-                options.OAuthSettings.LogoutReturnUriQueryParameterName = "returnTo";
+                options.OAuthSettings.LogoutUrl = "https://dev-khkwv2u0z51n71ze.us.auth0.com/oidc/logout";
+                options.OAuthSettings.LogoutReturnUriQueryParameterName = "post_logout_redirect_uri";
                 options.OAuthSettings.CallbackScheme = "mauiauthapp://callback";
             });
 

@@ -24,10 +24,9 @@ NOTE: To run the sample project, ensure both the Api AND Blazor/MAUI app are run
 ## Installation
 
 ### Required Steps
-1. Install Nuget package (MAUI/MAUI-Blazor-Hybrid)
+1. Install Nuget package
 ```
-Install-Package BlazorLikeAuth.Maui
-Install-Package BlazorHybridAuth.Maui
+Install-Package Auth.Maui.BlazorHybrid
 ```
 
 2. In your Program.cs add
@@ -122,7 +121,8 @@ There is an AuthenticateView control for the MAUI library variant(mimicking Blaz
 
 Also may potentially add an Authenticate attribute on a per page level...
 
-For MAUI Blazor Hybrid, make sure to use CascadingAuthenticationState in your route component:
+For MAUI Blazor Hybrid, make sure to use CascadingAuthenticationState in your route component
+(or also via config for .NET 8):
 
 ```xml
 @using Microsoft.AspNetCore.Components.Authorization
